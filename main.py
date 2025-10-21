@@ -5,9 +5,14 @@ import json
 def calculate_panels(panel_width: int, panel_height: int, 
                     roof_width: int, roof_height: int) -> int:
     
-    # Implementa acá tu solución
+    panel_area = (roof_width // panel_width) * (roof_height // panel_height)
+    panel_area_inv = (roof_width // panel_height) * (roof_height // panel_width)
+
+    max_panels = max(panel_area, panel_area_inv)
+
+
     
-    return 0
+    return max_panels
 
 
 def run_tests() -> None:
