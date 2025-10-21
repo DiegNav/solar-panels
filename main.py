@@ -1,7 +1,8 @@
 from typing import List, Tuple, Dict
 import json
+from functools import lru_cache
 
-
+@lru_cache(maxsize=None)
 def calculate_panels(panel_width: int, panel_height: int, 
                     roof_width: int, roof_height: int) -> int:
     
