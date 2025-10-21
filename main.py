@@ -13,13 +13,19 @@ def calculate_panels(panel_width: int, panel_height: int,
 
     max_panels = max(panel_area, panel_area_inv)
 
-
+    if max_panels == 0:
+        return 0
+    
     for cut in range(1, roof_width):
+        if cut < panel_width and (roof_width - cut) < panel_width:
+            continue
         left = calculate_panels(panel_width, panel_height, cut, roof_height)
         right = calculate_panels(panel_width, panel_height, roof_width - cut, roof_height)
         max_panels = max(max_panels, left + right)
 
     for cut in range(1, roof_height):
+        if cut < panel_height and (roof_height - cut) < panel_height:
+            continue
         top = calculate_panels(panel_width, panel_height, roof_width, cut)
         bottom = calculate_panels(panel_width, panel_height, roof_width, roof_height - cut)
         max_panels = max(max_panels, top + bottom)
