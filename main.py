@@ -5,13 +5,25 @@ import json
 def calculate_panels(panel_width: int, panel_height: int, 
                     roof_width: int, roof_height: int) -> int:
     
+    if roof_width <= 0 or roof_height <= 0 or panel_width <= 0 or panel_height <= 0:
+        return 0
+    
     panel_area = (roof_width // panel_width) * (roof_height // panel_height)
     panel_area_inv = (roof_width // panel_height) * (roof_height // panel_width)
 
     max_panels = max(panel_area, panel_area_inv)
 
 
-    
+    for cut in range(1, roof_width):
+        left = calculate_panels(panel_width, panel_height, cut, roof_height)
+        right = calculate_panels(panel_width, panel_height, roof_width - cut, roof_height)
+        max_panels = max(max_panels, left + right)
+
+    for cut in range(1, roof_height):
+        top = calculate_panels(panel_width, panel_height, roof_width, cut)
+        bottom = calculate_panels(panel_width, panel_height, roof_width, roof_height - cut)
+        max_panels = max(max_panels, top + bottom)
+
     return max_panels
 
 
